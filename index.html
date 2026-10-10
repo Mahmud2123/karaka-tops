@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Karaka TOPS — Campus marketplace and community</title>
+    <meta name="description"
+        content="Browse second-hand items, and soon rooms, campus updates and community, around TOPS Saki. Independent community concept.">
+    <style>
+        :root {
+            --g9: #0b3d2a;
+            --g8: #0f5132;
+            --g6: #1a7f4b;
+            --g1: #e6f4ec;
+            --g0: #f3f9f5;
+            --bg: #fff;
+            --soft: #f6f7f5;
+            --ink: #14201a;
+            --mut: #5b6a62;
+            --line: #e2e7e3;
+            --warn: #8a5a00;
+            --warnbg: #fff4d6;
+            --err: #b3261e
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+            color: var(--ink);
+            background: var(--bg);
+            line-height: 1.5;
+            padding-bottom: 64px
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: Georgia, "Times New Roman", serif;
+            line-height: 1.15;
+            margin: 0;
+            color: var(--g9)
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--g6);
+            outline-offset: 2px
+        }
+
+        .wrap {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 16px
+        }
+
+        svg.i {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex: none
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 44px;
+            padding: 0 18px;
+            border-radius: 8px;
+            border: 1px solid var(--g8);
+            background: var(--g8);
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .15s
+        }
+
+        .btn:hover {
+            background: var(--g9)
+        }
+
+        .btn.alt {
+            background: #fff;
+            color: var(--g8)
+        }
+
+        .btn.alt:hover {
+            background: var(--g1)
+        }
+
+        .btn.sm {
+            min-height: 38px;
+            padding: 0 12px;
+            font-size: .9rem
+        }
+
+        header.top {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(255, 255, 255, .96);
+            border-bottom: 1px solid var(--line);
+            backdrop-filter: blur(6px)
+        }
+
+        .bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 60px;
+            gap: 12px
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: var(--g9)
+        }
+
+        .brand b {
+            display: grid;
+            place-items: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: var(--g8);
+            color: #fff;
+            font-family: Georgia, serif;
+            font-size: 1.1rem
+        }
+
+        .brand span {
+            font-family: Georgia, serif;
+            font-size: 1.15rem;
+            letter-spacing: .2px
+        }
+
+        .brand small {
+            color: var(--g6);
+            font-weight: 600
+        }
+
+        nav.desk {
+            display: none;
+            gap: 4px
+        }
+
+        nav.desk a {
+            padding: 8px 12px;
+            border-radius: 8px;
+            color: var(--mut);
+            font-weight: 600
+        }
+
+        nav.desk a:hover,
+        nav.desk a.on {
+            background: var(--g1);
+            color: var(--g8)
+        }
+
+        nav.tabs {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 30;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            background: #fff;
+            border-top: 1px solid var(--line)
+        }
+
+        nav.tabs a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            min-height: 56px;
+            font-size: .7rem;
+            color: var(--mut);
+            font-weight: 600
+        }
+
+        nav.tabs a.on {
+            color: var(--g8)
+        }
+
+        @media(min-width:820px) {
+            nav.desk {
+                display: flex
+            }
+
+            nav.tabs {
+                display: none
+            }
+
+            body {
+                padding-bottom: 0
+            }
+        }
+
+        .hero {
+            background: var(--g0);
+            border-bottom: 1px solid var(--line);
+            padding: 40px 0 36px
+        }
+
+        .hero h1 {
+            font-size: clamp(1.9rem, 6vw, 3.1rem);
+            max-width: 14ch
+        }
+
+        .hero p {
+            color: var(--mut);
+            max-width: 48ch;
+            margin: 12px 0 20px;
+            font-size: 1.05rem
+        }
+
+        .search {
+            display: flex;
+            gap: 8px;
+            max-width: 560px
+        }
+
+        .search input {
+            flex: 1;
+            min-width: 0;
+            height: 48px;
+            padding: 0 14px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #fff
+        }
+
+        .search .btn {
+            height: 48px
+        }
+
+        .cta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px
+        }
+
+        .note {
+            font-size: .82rem;
+            color: var(--mut)
+        }
+
+        section.s {
+            padding: 36px 0
+        }
+
+        section.s h2 {
+            font-size: 1.5rem;
+            margin-bottom: 6px
+        }
+
+        .sub {
+            color: var(--mut);
+            margin: 0 0 18px
+        }
+
+        .svc {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px
+        }
+
+        @media(min-width:820px) {
+            .svc {
+                grid-template-columns: repeat(4, 1fr)
+            }
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            box-shadow: 0 1px 2px rgba(15, 50, 35, .05)
+        }
+
+        .sc {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 14px
+        }
+
+        .sc .ic {
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--g1);
+            color: var(--g8)
+        }
+
+        .sc h3 {
+            font-size: 1.05rem
+        }
+
+        .sc p {
+            margin: 0;
+            color: var(--mut);
+            font-size: .88rem;
+            flex: 1
+        }
+
+        .sc.act {
+            background: var(--g8);
+            border-color: var(--g8)
+        }
+
+        .sc.act h3,
+        .sc.act p {
+            color: #fff
+        }
+
+        .sc.act .ic {
+            background: rgba(255, 255, 255, .15);
+            color: #fff
+        }
+
+        .tag {
+            align-self: flex-start;
+            font-size: .72rem;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 99px;
+            background: var(--g1);
+            color: var(--g8)
+        }
+
+        .tag.soon {
+            background: var(--warnbg);
+            color: var(--warn)
+        }
+
+        .sc.act .tag {
+            background: #fff;
+            color: var(--g8)
+        }
+
+        .lnk {
+            font-weight: 600;
+            font-size: .9rem;
+            color: var(--g8);
+            display: inline-flex;
+            align-items: center;
+            min-height: 32px
+        }
+
+        .sc.act .lnk {
+            color: #fff
+        }
+
+        .cats {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 6px
+        }
+
+        .cat {
+            flex: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            width: 92px;
+            padding: 12px 6px;
+            font-size: .78rem;
+            font-weight: 600;
+            text-align: center
+        }
+
+        .cat:hover {
+            border-color: var(--g6)
+        }
+
+        .cat .ic {
+            color: var(--g8)
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px
+        }
+
+        @media(min-width:700px) {
+            .grid {
+                grid-template-columns: repeat(3, 1fr)
+            }
+        }
+
+        @media(min-width:1000px) {
+            .grid {
+                grid-template-columns: repeat(4, 1fr)
+            }
+        }
+
+        .pc {
+            overflow: hidden;
+            display: flex;
+            flex-direction: column
+        }
+
+        .pc:hover {
+            border-color: var(--g6)
+        }
+
+        .ph {
+            aspect-ratio: 4/3;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, var(--g1), #f2f6f3);
+            color: var(--g6);
+            position: relative
+        }
+
+        .ph .i {
+            width: 44px;
+            height: 44px;
+            stroke-width: 1.4
+        }
+
+        .ph img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .pb {
+            padding: 10px 12px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1
+        }
+
+        .pb h3 {
+            font-family: inherit;
+            font-size: .95rem;
+            color: var(--ink)
+        }
+
+        .price {
+            font-weight: 800;
+            color: var(--g8);
+            font-size: 1.05rem
+        }
+
+        .meta {
+            font-size: .8rem;
+            color: var(--mut)
+        }
+
+        .st {
+            font-size: .72rem;
+            font-weight: 700;
+            color: var(--g8)
+        }
+
+        .st.sold {
+            color: var(--err)
+        }
+
+        .st.res {
+            color: var(--warn)
+        }
+
+        .rw {
+            font-size: .75rem;
+            background: var(--g1);
+            color: var(--g8);
+            padding: 2px 6px;
+            border-radius: 6px;
+            align-self: flex-start
+        }
+
+        .demo {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-size: .66rem;
+            font-weight: 700;
+            background: rgba(255, 255, 255, .92);
+            color: var(--mut);
+            padding: 2px 6px;
+            border-radius: 6px
+        }
+
+        .steps {
+            display: grid;
+            gap: 12px
+        }
+
+        @media(min-width:700px) {
+            .steps {
+                grid-template-columns: repeat(4, 1fr)
+            }
+        }
+
+        .steps .card {
+            padding: 14px
+        }
+
+        .steps h3 {
+            font-size: 1rem;
+            margin: 6px 0 2px
+        }
+
+        .steps p {
+            margin: 0;
+            color: var(--mut);
+            font-size: .88rem
+        }
+
+        .ref {
+            background: var(--g0);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px
+        }
+
+        footer {
+            background: var(--g9);
+            color: #cfe3d8;
+            padding: 32px 0 20px;
+            margin-top: 20px
+        }
+
+        footer a {
+            color: #fff
+        }
+
+        footer .fg {
+            display: grid;
+            gap: 20px
+        }
+
+        @media(min-width:700px) {
+            footer .fg {
+                grid-template-columns: 2fr 1fr 1fr
+            }
+        }
+
+        footer h3 {
+            color: #fff;
+            font-family: inherit;
+            font-size: .95rem;
+            margin-bottom: 8px
+        }
+
+        footer ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 4px
+        }
+
+        footer .brand {
+            color: #fff
+        }
+
+        footer small.d {
+            display: block;
+            margin-top: 20px;
+            font-size: .78rem;
+            color: #9bb8a8
+        }
+
+        .tools {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 14px
+        }
+
+        @media(min-width:700px) {
+            .tools {
+                grid-template-columns: 2fr 1fr 1fr auto
+            }
+        }
+
+        .tools input,
+        .tools select,
+        .f input,
+        .f select,
+        .f textarea {
+            width: 100%;
+            min-height: 44px;
+            padding: 8px 12px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: #fff
+        }
+
+        .chips {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 8px
+        }
+
+        .chip {
+            flex: none;
+            min-height: 36px;
+            padding: 0 14px;
+            border-radius: 99px;
+            border: 1px solid var(--line);
+            background: #fff;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: .85rem
+        }
+
+        .chip.on {
+            background: var(--g8);
+            color: #fff;
+            border-color: var(--g8)
+        }
+
+        .empty {
+            text-align: center;
+            padding: 48px 16px;
+            border: 1px dashed var(--line);
+            border-radius: 10px;
+            color: var(--mut)
+        }
+
+        .empty h3 {
+            color: var(--ink);
+            font-family: inherit;
+            margin: 8px 0
+        }
+
+        .crumb {
+            display: inline-flex;
+            align-items: center;
+            min-height: 40px;
+            color: var(--g8);
+            font-weight: 600
+        }
+
+        .det {
+            display: grid;
+            gap: 20px
+        }
+
+        @media(min-width:820px) {
+            .det {
+                grid-template-columns: 1.1fr 1fr
+            }
+        }
+
+        .det .ph {
+            aspect-ratio: 4/3;
+            border-radius: 10px;
+            border: 1px solid var(--line)
+        }
+
+        .det h1 {
+            font-size: 1.7rem
+        }
+
+        .det .price {
+            font-size: 1.6rem;
+            margin: 6px 0
+        }
+
+        .facts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 14px 0
+        }
+
+        .facts div {
+            background: var(--soft);
+            padding: 10px;
+            border-radius: 8px;
+            font-size: .88rem
+        }
+
+        .facts b {
+            display: block;
+            color: var(--mut);
+            font-weight: 600;
+            font-size: .75rem
+        }
+
+        .acts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 14px 0
+        }
+
+        .f {
+            display: grid;
+            gap: 14px;
+            max-width: 640px
+        }
+
+        .f label {
+            font-weight: 600;
+            font-size: .9rem;
+            display: block;
+            margin-bottom: 4px
+        }
+
+        .f .r {
+            display: grid;
+            gap: 14px
+        }
+
+        @media(min-width:600px) {
+            .f .r {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        .er {
+            color: var(--err);
+            font-size: .82rem;
+            min-height: 1em;
+            margin-top: 2px
+        }
+
+        .banner {
+            background: var(--warnbg);
+            color: var(--warn);
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: .88rem;
+            margin-bottom: 16px
+        }
+
+        .prev {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .prev img {
+            width: 72px;
+            height: 72px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid var(--line)
+        }
+
+        .ok {
+            background: var(--g0);
+            border: 1px solid var(--g6);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 640px
+        }
+
+        .cs {
+            max-width: 620px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 48px 0
+        }
+
+        .cs .ic {
+            display: grid;
+            place-items: center;
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 14px;
+            border-radius: 14px;
+            background: var(--g1);
+            color: var(--g8)
+        }
+
+        .cs .i {
+            width: 30px;
+            height: 30px
+        }
+
+        .cs h1 {
+            font-size: 2rem;
+            margin: 10px 0
+        }
+
+        .cs p {
+            color: var(--mut)
+        }
+
+        .cs ul {
+            text-align: left;
+            display: inline-block;
+            color: var(--mut);
+            padding-left: 20px
+        }
+
+        #toast {
+            position: fixed;
+            left: 50%;
+            bottom: 76px;
+            transform: translateX(-50%);
+            background: var(--g9);
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: .9rem;
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .2s;
+            max-width: 90vw
+        }
+
+        #toast.show {
+            opacity: 1
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            * {
+                transition: none !important;
+                scroll-behavior: auto !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="top">
+        <div class="wrap bar">
+            <a class="brand" href="#/" aria-label="Karaka TOPS home"><b>K</b><span>Karaka <small>TOPS</small></span></a>
+            <nav class="desk" aria-label="Main" id="deskNav"></nav>
+            <a class="btn sm" href="#/marketplace/sell">Sell an item</a>
+        </div>
+    </header>
+    <main id="app" tabindex="-1"></main>
+    <footer>
+        <div class="wrap">
+            <div class="fg">
+                <div>
+                    <div class="brand"><b>K</b><span>Karaka TOPS</span></div>
+                    <p style="max-width:42ch;font-size:.9rem">A community marketplace concept for people around Saki.
+                        Listings, rooms, updates and conversations in one place.</p>
+                </div>
+                <div>
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#/marketplace">TOPS Marketplace</a></li>
+                        <li><a href="#/rooms">TOPS Rooms</a></li>
+                        <li><a href="#/tops-tv">TOPS TV</a></li>
+                        <li><a href="#/connect">TOPS Connect</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Contact</h3>
+                    <p style="font-size:.9rem;margin:0">Enquiries go through WhatsApp.</p>
+                </div>
+            </div><small class="d">&copy; <span id="yr"></span> Karaka TOPS. Independent community marketplace concept.
+              </small>
+        </div>
+    </footer>
+    <nav class="tabs" aria-label="Mobile" id="tabNav"></nav>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script>
+        /* ===== CONFIG: edit these ===== */
+        const CONFIG = { whatsapp: "2349123220398",/* operator number, digits only, with country code */brand: "Karaka TOPS" };
+        /* ===== Icons ===== */
+        const P = { store: '<path d="M3 9l1.5-5h15L21 9M4 9v11h16V9M3 9a3 3 0 006 0 3 3 0 006 0 3 3 0 006 0M9 20v-6h6v6"/>', bed: '<path d="M3 20V6M3 14h18v6M21 14v-2a3 3 0 00-3-3h-7v5M7 11h.01"/>', tv: '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M8 2l4 3 4-3"/>', users: '<path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8M22 21v-2a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8"/>', search: '<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>', share: '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/>', chat: '<path d="M21 11.5a8.4 8.4 0 01-12.4 7.4L3 21l2.1-5.6A8.5 8.5 0 1121 11.5z"/>', home: '<path d="M3 11l9-8 9 8M5 10v10h14V10"/>', sofa: '<path d="M4 11V8a3 3 0 013-3h10a3 3 0 013 3v3M2 13a2 2 0 014 0v2h12v-2a2 2 0 014 0v5H2zM5 18v2M19 18v2"/>', phone: '<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/>', laptop: '<rect x="4" y="5" width="16" height="11" rx="1"/><path d="M2 20h20"/>', shirt: '<path d="M8 3L3 6l2 4 3-1v12h8V9l3 1 2-4-5-3a4 4 0 01-8 0z"/>', plug: '<path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 01-12 0zM12 18v4"/>', book: '<path d="M4 19.5A2.5 2.5 0 016.5 17H20V3H6.5A2.5 2.5 0 004 5.5zM4 19.5V22h16"/>', box: '<path d="M21 8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8"/>', arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>', back: '<path d="M19 12H5M11 6l-6 6 6 6"/>', pin: '<path d="M12 22s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/>' };
+        const ic = n => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${P[n] || P.box}</svg>`;
+        /* ===== Data ===== */
+        const CATS = [{ id: "furniture", name: "Furniture", icon: "sofa" }, { id: "phones", name: "Phones & Electronics", icon: "phone" }, { id: "computers", name: "Computers & Accessories", icon: "laptop" }, { id: "fashion", name: "Fashion", icon: "shirt" }, { id: "appliances", name: "Home Appliances", icon: "plug" }, { id: "books", name: "Books & Educational", icon: "book" }, { id: "other", name: "Other Items", icon: "box" }];
+        const CONDS = ["Brand new", "Like new", "Good", "Fair"];
+        const ST = { available: "Available", reserved: "Reserved", sold: "Sold" };
+        const PRODUCTS = [
+            { id: "bedframe", name: "Bedframe", cat: "furniture", price: 65000, loc: "Saki, Challenge", cond: "Good", status: "available", reward: 1000, desc: "Sturdy bedframe in good shape. Based on the sample listing format supplied for this project. Not a confirmed current listing." },
+            { id: "study-table", name: "Used study table", cat: "furniture", price: 18000, loc: "Saki, Challenge 2", cond: "Fair", status: "available", reward: 500, desc: "Wooden study table with a smooth top. Sample demonstration listing." },
+            { id: "office-chair", name: "Office chair", cat: "furniture", price: 25000, loc: "Saki, Oja Oba", cond: "Good", status: "reserved", reward: null, desc: "Padded chair with adjustable height. Sample demonstration listing." },
+            { id: "android-phone", name: "Used Android phone", cat: "phones", price: 85000, loc: "Saki, Ogbooro", cond: "Good", status: "available", reward: 1500, desc: "Used Android phone, 64GB storage. Sample demonstration listing." },
+            { id: "laptop", name: "Laptop (14-inch)", cat: "computers", price: 210000, loc: "Saki, Challenge", cond: "Like new", status: "available", reward: 3000, desc: "Light laptop suited to coursework. Sample demonstration listing." },
+            { id: "standing-fan", name: "Standing fan", cat: "appliances", price: 22000, loc: "Saki, Challenge 2", cond: "Good", status: "available", reward: null, desc: "Three-speed standing fan. Sample demonstration listing." },
+            { id: "bookshelf", name: "Bookshelf", cat: "furniture", price: 30000, loc: "Saki, Station Road", cond: "Good", status: "sold", reward: null, desc: "Four-tier bookshelf. Shown as sold to demonstrate status labels. Sample listing." },
+            { id: "textbooks", name: "Engineering textbook set", cat: "books", price: 15000, loc: "Saki, Challenge", cond: "Fair", status: "available", reward: 500, desc: "Bundle of used textbooks. Sample demonstration listing." }];
+        /* ===== Utils ===== */
+        const naira = n => new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", maximumFractionDigits: 0 }).format(n);
+        const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+        const cat = id => CATS.find(c => c.id === id) || CATS[6];
+        const $ = s => document.querySelector(s);
+        function toast(m) { const t = $("#toast"); t.textContent = m; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 2600) }
+        function waUrl(text) { return `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}` }
+        function waProduct(p) { return waUrl(`Hello, I'm interested in "${p.name}" (${naira(p.price)}) listed on ${CONFIG.brand}. Is it still available?`) }
+        async function share(p) {
+            const url = location.href.split("#")[0] + "#/marketplace/" + p.id; const data = { title: p.name, text: `${p.name} — ${naira(p.price)} on ${CONFIG.brand}`, url };
+            try { if (navigator.share) { await navigator.share(data); return } } catch (e) { if (e.name === "AbortError") return }
+            try { await navigator.clipboard.writeText(url); toast("Link copied") } catch { prompt("Copy this link:", url) }
+        }
+        /* ===== Components ===== */
+        const svcs = [{ k: "marketplace", n: "TOPS Marketplace", i: "store", d: "Buy and sell second-hand items around Saki.", s: "Active", a: "Explore Marketplace", h: "#/marketplace" },
+        { k: "rooms", n: "TOPS Rooms", i: "bed", d: "Find rooms and apartments with clear fees.", s: "Coming soon", a: "Learn more", h: "#/rooms" },
+        { k: "tv", n: "TOPS TV", i: "tv", d: "Campus and community updates in one feed.", s: "Coming soon", a: "Learn more", h: "#/tops-tv" },
+        { k: "connect", n: "TOPS Connect", i: "users", d: "Ask questions, join groups, meet people.", s: "Coming soon", a: "Learn more", h: "#/connect" }];
+        const svcCard = s => `<a class="card sc ${s.s === "Active" ? "act" : ""}" href="${s.h}"><span class="ic">${ic(s.i)}</span><h3>${s.n}</h3><span class="tag ${s.s === "Active" ? "" : "soon"}">${s.s}</span><p>${s.d}</p><span class="lnk">${s.a}</span></a>`;
+        const prodCard = p => `<a class="card pc" href="#/marketplace/${p.id}"><div class="ph">${ic(cat(p.cat).icon)}<span class="demo">Sample</span></div><div class="pb"><h3>${esc(p.name)}</h3><span class="price">${naira(p.price)}</span><span class="meta">${esc(p.loc)} · ${p.cond}</span><span class="st ${p.status === "sold" ? "sold" : p.status === "reserved" ? "res" : ""}">${ST[p.status]}</span>${p.reward ? `<span class="rw">Referral reward ${naira(p.reward)}</span>` : ""}</div></a>`;
+        function coming({ icon, title, desc, items, note }) { return `<div class="wrap"><div class="cs"><div class="ic">${ic(icon)}</div><span class="tag soon">Coming soon</span><h1>${title}</h1><p>${desc}</p><p><b>Planned</b></p><ul>${items.map(i => `<li>${i}</li>`).join("")}</ul><p class="note">${note}</p><div class="cta" style="justify-content:center"><a class="btn" href="#/marketplace">Browse Marketplace</a><a class="btn alt" href="#/">Back to Karaka TOPS</a></div></div></div>` }
+        const SOON = {
+            rooms: { icon: "bed", title: "TOPS Rooms", desc: "A simpler way to find rooms and apartments near campus, with every fee shown separately.", items: ["Search by location and budget", "Rent and extra fees listed separately, with a total", "Photos, landmarks and availability", "Eligibility notes where relevant", "Enquire through WhatsApp"], note: "No room database exists yet. Nothing here is a live accommodation listing." },
+            "tops-tv": { icon: "tv", title: "TOPS TV", desc: "Campus and community updates, brought into the platform from the existing TOPS TV idea.", items: ["News and announcements", "Events", "Lost and found", "Searchable, shareable posts", "Admin publishing and moderation"], note: "No news is published here yet. Verified updates will appear once publishing is built." },
+            connect: { icon: "users", title: "TOPS Connect", desc: "A place for questions, study groups and interest-based communities.", items: ["Community discussions", "Questions and answers", "Study groups", "Interest-based communities", "Private messaging, only after privacy and moderation rules are designed"], note: "There is no chat or messaging in this version." }
+        };
+        /* ===== Views ===== */
+        function home() {
+            const feat = PRODUCTS.filter(p => p.status === "available").slice(0, 4);
+            return `<section class="hero"><div class="wrap"><h1>Your Campus. Your Community.</h1><p>Discover great deals, find what you need, and stay connected with the TOPS community.</p>
+<form class="search" role="search" id="hs"><label class="sr" for="hq" style="position:absolute;left:-9999px">Search items</label><input id="hq" type="search" placeholder="Search for a bedframe, phone, laptop…" maxlength="80"><button class="btn" type="submit">${ic("search")}Search</button></form>
+<div class="cta"><a class="btn" href="#/marketplace">Browse Marketplace</a><a class="btn alt" href="#/marketplace/sell">Sell an Item</a></div>
+<p class="note" style="margin-top:14px">Independent community marketplace concept. Not officially affiliated with the institution.</p></div></section>
+<section class="s"><div class="wrap"><h2>One platform, four services</h2><p class="sub">Marketplace is open. The rest are on the way.</p><div class="svc">${svcs.map(svcCard).join("")}</div></div></section>
+<section class="s" style="padding-top:0"><div class="wrap"><h2>Shop by category</h2><p class="sub">Jump straight to what you need.</p><div class="cats">${CATS.map(c => `<a class="card cat" href="#/marketplace?cat=${c.id}">${ic(c.icon)}${c.name}</a>`).join("")}</div></div></section>
+<section class="s" style="background:var(--soft)"><div class="wrap"><h2>Featured listings</h2><p class="sub">Sample listings for demonstration. They are not current stock.</p><div class="grid">${feat.map(prodCard).join("")}</div><p style="margin-top:16px"><a class="btn alt" href="#/marketplace">View all listings</a></p></div></section>
+<section class="s"><div class="wrap"><h2>How it works</h2><p class="sub">The platform connects you with the marketplace. It does not process payments or complete sales.</p><div class="steps">${[["Browse", "Look through available items."], ["Open a listing", "See price, condition and location."], ["Message on WhatsApp", "Ask about the item directly."], ["Arrange the deal", "Agree the details with the people involved."]].map(([t, d], i) => `<div class="card"><span class="tag">Step ${i + 1}</span><h3>${t}</h3><p>${d}</p></div>`).join("")}</div></div></section>
+<section class="s" style="padding-top:0"><div class="wrap"><div class="ref"><h2>Know someone looking for an item?</h2><p style="margin:0;color:var(--mut)">Share the listing and help connect a buyer. Where a listing shows a referral reward, it is subject to the marketplace operator's approved terms. Rewards are not tracked or paid through this site.</p></div></div></section>`}
+        const mq = { q: "", cat: "all", sort: "new" };
+        function market(params) {
+            if (params.has("cat")) mq.cat = params.get("cat"); if (params.has("q")) mq.q = params.get("q");
+            return `<div class="wrap" style="padding-top:24px;padding-bottom:24px"><h1 style="font-size:1.8rem">Marketplace</h1><p class="sub">Sample listings for demonstration.</p>
+<div class="tools"><div><label for="mq" style="position:absolute;left:-9999px">Search items</label><input id="mq" type="search" placeholder="Search items by name" maxlength="80" value="${esc(mq.q)}"></div>
+<div><label for="mc" style="position:absolute;left:-9999px">Category</label><select id="mc"><option value="all">All categories</option>${CATS.map(c => `<option value="${c.id}">${c.name}</option>`).join("")}</select></div>
+<div><label for="ms" style="position:absolute;left:-9999px">Sort</label><select id="ms"><option value="new">Default order</option><option value="asc">Price: low to high</option><option value="desc">Price: high to low</option></select></div>
+<button class="btn alt" id="mclr" type="button">Clear filters</button></div>
+<div class="chips" id="chips"></div><p class="note" id="mcount" aria-live="polite"></p><div id="mres"></div></div>`}
+        function marketUpdate() {
+            let l = PRODUCTS.filter(p => (mq.cat === "all" || p.cat === mq.cat) && p.name.toLowerCase().includes(mq.q.trim().toLowerCase()));
+            if (mq.sort === "asc") l = [...l].sort((a, b) => a.price - b.price); if (mq.sort === "desc") l = [...l].sort((a, b) => b.price - a.price);
+            $("#mc").value = mq.cat; $("#ms").value = mq.sort;
+            $("#chips").innerHTML = [{ id: "all", name: "All" }, ...CATS].map(c => `<button class="chip ${mq.cat === c.id ? "on" : ""}" data-cat="${c.id}" type="button" aria-pressed="${mq.cat === c.id}">${c.name}</button>`).join("");
+            $("#mcount").textContent = `${l.length} listing${l.length === 1 ? "" : "s"}`;
+            $("#mres").innerHTML = l.length ? `<div class="grid">${l.map(prodCard).join("")}</div>` : `<div class="empty">${ic("search")}<h3>No items match your search</h3><p>Try a different name or category.</p><button class="btn" id="mclr2" type="button">Clear filters</button></div>`
+        }
+        function detail(id) {
+            const p = PRODUCTS.find(x => x.id === id);
+            if (!p) return `<div class="wrap"><div class="cs"><div class="ic">${ic("search")}</div><h1>Listing not found</h1><p>This listing doesn't exist or has been removed.</p><a class="btn" href="#/marketplace">Back to Marketplace</a></div></div>`;
+            const rel = PRODUCTS.filter(x => x.cat === p.cat && x.id !== p.id).slice(0, 4); const live = p.status !== "sold";
+            return `<div class="wrap" style="padding-top:12px;padding-bottom:24px"><a class="crumb" href="#/marketplace">${ic("back")}&nbsp;Back to Marketplace</a>
+<div class="det"><div class="ph">${ic(cat(p.cat).icon)}<span class="demo">Sample image placeholder</span></div>
+<div><span class="tag">${cat(p.cat).name}</span><h1 style="margin-top:8px">${esc(p.name)}</h1><div class="price">${naira(p.price)}</div>
+<div class="facts"><div><b>Condition</b>${p.cond}</div><div><b>Location</b>${esc(p.loc)}</div><div><b>Status</b>${ST[p.status]}</div><div><b>Referral reward</b>${p.reward ? naira(p.reward) : "None"}</div></div>
+<p style="color:var(--mut)">${esc(p.desc)}</p>${p.reward ? `<p class="note">Reward is subject to the marketplace operator's approved terms.</p>` : ""}
+<div class="acts">${live ? `<a class="btn" id="wa" href="${waProduct(p)}" target="_blank" rel="noopener">${ic("chat")}Enquire on WhatsApp</a>` : `<span class="btn alt" aria-disabled="true">No longer available</span>`}<button class="btn alt" id="sh" type="button">${ic("share")}Share</button></div>
+<p class="note">Sample listing for demonstration. Payments are not handled on this site.</p></div></div>
+${rel.length ? `<h2 style="margin:28px 0 12px;font-size:1.3rem">Related listings</h2><div class="grid">${rel.map(prodCard).join("")}</div>` : ""}</div>`
+        }
+        function sell() {
+            return `<div class="wrap" style="padding-top:24px;padding-bottom:32px"><h1 style="font-size:1.8rem">Sell an item</h1>
+<div class="banner" style="margin-top:12px"><b>Prototype only.</b> This form checks your details but does not publish or save anything.</div>
+<form class="f" id="sf" novalidate>
+<div><label for="f-name">Item name</label><input id="f-name" name="name" maxlength="80" required><div class="er" id="e-name"></div></div>
+<div class="r"><div><label for="f-cat">Category</label><select id="f-cat" name="cat" required><option value="">Select…</option>${CATS.map(c => `<option value="${c.id}">${c.name}</option>`).join("")}</select><div class="er" id="e-cat"></div></div>
+<div><label for="f-price">Price (₦)</label><input id="f-price" name="price" type="number" inputmode="numeric" min="1" max="100000000" step="1" required><div class="er" id="e-price"></div></div></div>
+<div><label for="f-desc">Description</label><textarea id="f-desc" name="desc" rows="4" maxlength="500" required></textarea><div class="er" id="e-desc"></div></div>
+<div class="r"><div><label for="f-cond">Condition</label><select id="f-cond" name="cond" required><option value="">Select…</option>${CONDS.map(c => `<option>${c}</option>`).join("")}</select><div class="er" id="e-cond"></div></div>
+<div><label for="f-loc">Location</label><input id="f-loc" name="loc" maxlength="80" required><div class="er" id="e-loc"></div></div></div>
+<div class="r"><div><label for="f-contact">Preferred contact</label><select id="f-contact" name="contact" required><option value="">Select…</option><option>WhatsApp</option><option>Phone call</option></select><div class="er" id="e-contact"></div></div>
+<div><label for="f-rw">Referral reward (₦, optional)</label><input id="f-rw" name="rw" type="number" inputmode="numeric" min="0" max="100000" step="1"><div class="er" id="e-rw"></div></div></div>
+<div><label for="f-img">Photos (optional, up to 4)</label><input id="f-img" type="file" accept="image/*" multiple><div class="er" id="e-img"></div><div class="prev" id="prev"></div></div>
+<div><button class="btn" type="submit">Prepare listing</button></div></form><div id="sres"></div></div>`}
+        /* ===== Router ===== */
+        const NAV = [["#/", "Home", "home"], ["#/marketplace", "Marketplace", "store"], ["#/rooms", "Rooms", "bed"], ["#/tops-tv", "TOPS TV", "tv"], ["#/connect", "Connect", "users"]];
+        function nav(path) {
+            const on = h => h === "#/" ? path === "/" : path.startsWith(h.slice(1));
+            $("#deskNav").innerHTML = NAV.slice(1).map(([h, n]) => `<a href="${h}" class="${on(h) ? "on" : ""}" ${on(h) ? 'aria-current="page"' : ""}>${n === "TOPS TV" ? n : n === "Connect" ? "TOPS Connect" : "TOPS " + n}</a>`).join("");
+            $("#tabNav").innerHTML = NAV.map(([h, n, i]) => `<a href="${h}" class="${on(h) ? "on" : ""}">${ic(i)}${n}</a>`).join("")
+        }
+        function render() {
+            const raw = location.hash.slice(1) || "/"; const [path, qs] = raw.split("?"); const params = new URLSearchParams(qs || ""); const app = $("#app"); nav(path); let m;
+            if (path === "/") app.innerHTML = home(), bindHome();
+            else if (path === "/marketplace") app.innerHTML = market(params), bindMarket(), marketUpdate();
+            else if (path === "/marketplace/sell") app.innerHTML = sell(), bindSell();
+            else if (m = path.match(/^\/marketplace\/([\w-]+)$/)) { app.innerHTML = detail(m[1]); const p = PRODUCTS.find(x => x.id === m[1]); if (p) { $("#sh").onclick = () => share(p); const w = $("#wa"); if (w && CONFIG.whatsapp.includes("X")) w.addEventListener("click", () => toast("Demo: set the WhatsApp number in CONFIG")) } }
+            else if (m = path.match(/^\/(rooms|tops-tv|connect)$/)) app.innerHTML = coming(SOON[m[1]]);
+            else app.innerHTML = `<div class="wrap"><div class="cs"><h1>Page not found</h1><a class="btn" href="#/">Go home</a></div></div>`;
+            document.title = (path === "/" ? "" : "") + "Karaka TOPS — Campus marketplace and community"; window.scrollTo(0, 0)
+        }
+        function bindHome() { $("#hs").onsubmit = e => { e.preventDefault(); mq.q = $("#hq").value; mq.cat = "all"; location.hash = "#/marketplace" } }
+        function bindMarket() {
+            const upd = () => marketUpdate();
+            $("#mq").oninput = e => { mq.q = e.target.value; upd() }; $("#mc").onchange = e => { mq.cat = e.target.value; upd() }; $("#ms").onchange = e => { mq.sort = e.target.value; upd() };
+            const clr = () => { mq.q = ""; mq.cat = "all"; mq.sort = "new"; $("#mq").value = ""; upd() }; $("#mclr").onclick = clr;
+            $("#app").onclick = e => { const c = e.target.closest(".chip"); if (c) { mq.cat = c.dataset.cat; upd() } if (e.target.id === "mclr2") clr() }
+        }
+        function bindSell() {
+            const f = $("#sf"); let urls = [];
+            $("#f-img").onchange = e => {
+                urls.forEach(URL.revokeObjectURL); urls = []; const fs = [...e.target.files]; $("#e-img").textContent = "";
+                if (fs.length > 4) { $("#e-img").textContent = "Choose up to 4 images."; e.target.value = ""; $("#prev").innerHTML = ""; return }
+                if (fs.some(x => !x.type.startsWith("image/") || x.size > 5e6)) { $("#e-img").textContent = "Use image files under 5 MB each."; e.target.value = ""; $("#prev").innerHTML = ""; return }
+                urls = fs.map(x => URL.createObjectURL(x)); $("#prev").innerHTML = urls.map(u => `<img src="${u}" alt="Selected photo preview">`).join("")
+            };
+            f.onsubmit = e => {
+                e.preventDefault(); const v = Object.fromEntries(new FormData(f)); const er = {};
+                const nm = (v.name || "").trim(), ds = (v.desc || "").trim(), lc = (v.loc || "").trim(), pr = Number(v.price);
+                if (nm.length < 3) er.name = "Enter an item name of at least 3 characters.";
+                if (!v.cat) er.cat = "Choose a category.";
+                if (!v.price || !Number.isFinite(pr) || pr <= 0) er.price = "Enter a price greater than zero."; else if (pr > 1e8) er.price = "Price is too high.";
+                if (ds.length < 10) er.desc = "Describe the item in at least 10 characters.";
+                if (!v.cond) er.cond = "Choose a condition.";
+                if (lc.length < 2) er.loc = "Enter where the item is.";
+                if (!v.contact) er.contact = "Choose a contact method.";
+                if (v.rw !== "" && (Number(v.rw) < 0 || Number(v.rw) > 1e5)) er.rw = "Reward must be between ₦0 and ₦100,000.";
+                ["name", "cat", "price", "desc", "cond", "loc", "contact", "rw"].forEach(k => { $("#e-" + k).textContent = er[k] || ""; $("#f-" + k).setAttribute("aria-invalid", er[k] ? "true" : "false") });
+                const first = Object.keys(er)[0]; if (first) { $("#f-" + first).focus(); return }
+                f.hidden = true; $("#sres").innerHTML = `<div class="ok" role="status" tabindex="-1" id="okb"><h2>Listing prepared</h2><p><b>This listing has not been published or saved.</b> The prototype has no backend yet. Refreshing the page clears it.</p><div class="facts"><div><b>Item</b>${esc(nm)}</div><div><b>Price</b>${naira(pr)}</div><div><b>Category</b>${cat(v.cat).name}</div><div><b>Condition</b>${esc(v.cond)}</div></div><div class="acts"><a class="btn" href="#/marketplace">Back to Marketplace</a><button class="btn alt" id="again" type="button">Prepare another</button></div></div>`;
+                $("#okb").focus(); $("#again").onclick = render
+            }
+        }
+        window.addEventListener("hashchange", render); $("#yr").textContent = new Date().getFullYear(); render();
+    </script>
+</body>
+
+</html>
